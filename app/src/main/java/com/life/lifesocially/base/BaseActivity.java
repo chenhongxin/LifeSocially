@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener {
 
-    protected Map<String, Object> params = new HashMap<>();
+    protected Map<String, String> params = new HashMap<>();
     // 回调跳转界面
     protected IntentCallBack intentCallBack;
 
