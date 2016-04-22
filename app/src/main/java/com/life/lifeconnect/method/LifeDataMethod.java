@@ -9,14 +9,15 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
+import rx.Observable;
 
 /**
  * 连接获取数据
  */
-public interface LifeDataMethod {
+public interface LifeDataMethod<T> {
 
     @GET("{url}")
-    Call<LifeListResponse<Data>> get(@Path("url") String url, @QueryMap Map<String, String> options);
+    Observable<LifeListResponse<T>> get(@Path("url") String url, @QueryMap Map<String, String> options);
 
     @GET("{url}")
     Call<LifeListResponse<Data>> post(@Path("url") String url, @QueryMap Map<String, String> options);
