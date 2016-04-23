@@ -1,16 +1,30 @@
 package com.life.lifesocially.ui;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
-import com.life.lifeconnect.LifeListResponse;
-import com.life.lifeconnect.LifeResultResponseHandler;
-import com.life.lifeconnect.connect.LifeCommonConnect;
+import com.life.lifeconnect.LifeConfig;
 import com.life.lifesocially.R;
 import com.life.lifesocially.base.BaseActivity;
-import com.life.lifesocially.utis.Base64;
+import com.life.lifesocially.ui.user.LifeLoginActivity;
+import com.life.lifesocially.ui.user.LifeRegisterActivity;
+
+import java.util.concurrent.TimeUnit;
+
+import butterknife.Bind;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class WelComeActivity extends BaseActivity {
+
+    @Bind(R.id.b_welcome_register)
+    Button b_welcome_register;
+    @Bind(R.id.b_welcome_login)
+    Button b_welcome_login;
+    private final int WELCOME_REGISTER_REQUEST = 0x111;
 
     @Override
     public int getContentViewID() {
@@ -19,34 +33,41 @@ public class WelComeActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        LifeConfig.init(this);
     }
 
     @Override
     public void initWidget() {
-        params.put("code", "101");
-        params.put("phone", Base64.encode("15221089157"));
-        new LifeCommonConnect().excute("/app/sendMessage.json", params, new LifeResultResponseHandler() {
-            @Override
-            public void onSuccess(LifeListResponse lifeListResponse) {
-                Log.i("json", "onSuccess");
-            }
-
-            @Override
-            public void onFail(LifeListResponse lifeListResponse, String error) {
-                Log.i("json", "onFail");
-            }
-        });
     }
 
     @Override
     public void initWidgetClick() {
-
+        b_welcome_register.setOnClickListener(this);
+        b_welcome_login.setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.b_welcome_register: {
+                intentCallBack.startActivityForResultCommon(LifeRegisterActivity.class, WELCOME_REGISTER_REQUEST);
+            }
+            break;
+            case R.id.b_welcome_login: {
+                intentCallBack.startActivityCommon(LifeLoginActivity.class);
+            }
+            break;
+        }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case WELCOME_REGISTER_REQUEST:
+                if (resultCode == RESULT_OK)
+                    finish();
+                break;
+        }
+    }
 }

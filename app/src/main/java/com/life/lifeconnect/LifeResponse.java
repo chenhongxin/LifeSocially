@@ -1,9 +1,9 @@
 package com.life.lifeconnect;
 
 /**
- * Created by Administrator on 2016/4/20.
+ * 通用响应
  */
-public class LifeListResponse<T> {
+public class LifeResponse<T> {
     public T data;
     public String code;
     public String msg;

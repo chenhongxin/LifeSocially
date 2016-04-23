@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 /**
- * Created by Administrator on 2016/4/20.
+ * Life配置
  */
 public class LifeConfig {
 
@@ -17,7 +17,7 @@ public class LifeConfig {
     }
 
     public static String getApiHost() {
-        return "".equals(getString("nomarl")) ? "http://app.tunnel.qydev.com" : "";
+        return "".equals(getString("nomarl")) ? "http://sit.yhb.app.tunnel.qydev.com" : "";
     }
 
     public static String getString(String key) {

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.life.lifesocially.app.AppManager;
+import com.life.lifesocially.view.CustomProgressDialog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     // 处理触发事件
     public abstract void widgetClick(View v);
+    // 加载框
+    protected CustomProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         AppManager.getInstance().pushActivity(this);
         setContentView(getContentViewID());
         ButterKnife.bind(this);
+        progressDialog = new CustomProgressDialog(this);
 
         intentCallBack = new IntentCallBack() {
             @Override

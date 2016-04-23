@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="projectdan">#38B3FF</color>
     <color name="topViewColor">#389fff</color>
     <color name="viewBgColor">#eaeaea</color>
     <color name="user_color">#9F9F9F</color>
     <color name="projectchange">#2B77FF</color>
+    <color name="life_9a9a9a">#9a9a9a</color>
 </resources>
