@@ -1,7 +1,6 @@
 package com.life.lifesocially.ui;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,13 +9,9 @@ import com.life.lifesocially.R;
 import com.life.lifesocially.base.BaseActivity;
 import com.life.lifesocially.ui.user.LifeLoginActivity;
 import com.life.lifesocially.ui.user.LifeRegisterActivity;
-
-import java.util.concurrent.TimeUnit;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import butterknife.Bind;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 public class WelComeActivity extends BaseActivity {
 
@@ -34,10 +29,14 @@ public class WelComeActivity extends BaseActivity {
     @Override
     public void initData() {
         LifeConfig.init(this);
+        AutoLayoutConifg.getInstance().init(this);
     }
 
     @Override
     public void initWidget() {
+
+
+
     }
 
     @Override
@@ -70,4 +69,5 @@ public class WelComeActivity extends BaseActivity {
                 break;
         }
     }
+
 }

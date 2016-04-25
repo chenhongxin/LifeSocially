@@ -19,17 +19,21 @@ import rx.schedulers.Schedulers;
 /**
  * LifeConnect
  */
-public abstract class LifeConnect {
+public class LifeConnect {
 
     protected Subscription subscriber;
 
-    public abstract void find(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler);
+    public void find(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler){
+        subscribeOn(getLifeMethod(isCookie).array(url, options), lifeResultResponseHandler);
+    }
 
-    public abstract void excute(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler);
+    public void excute(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler){
+        subscribeOn(getLifeMethod(isCookie).execute(url, options), lifeResultResponseHandler);
+    }
 
-    public abstract void call(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler);
-
-    public abstract void arrayCall(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler);
+    public void hash(String url, Map<String, String> options, boolean isCookie, final LifeResultResponseHandler lifeResultResponseHandler){
+        subscribeOn(getLifeMethod(isCookie).hash(url, options), lifeResultResponseHandler);
+    }
 
     public LifeMethod getLifeMethod(final boolean isCookie) {
         OkHttpClient okClient = new OkHttpClient.Builder()

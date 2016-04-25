@@ -1,17 +1,15 @@
 package com.life.lifesocially.ui.user;
 
 import android.os.CountDownTimer;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.life.lifeconnect.LifeConnect;
 import com.life.lifeconnect.LifeResponse;
 import com.life.lifeconnect.LifeResultResponseHandler;
-import com.life.lifeconnect.connect.LifeCommonConnect;
 import com.life.lifesocially.R;
 import com.life.lifesocially.base.BaseTitleActivity;
 import com.life.lifesocially.utis.Base64;
@@ -102,7 +100,7 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                 params.put("code", "101");
                 params.put("phone", Base64.encode(phone));
                 progressDialog.startProgressDialog();
-                new LifeCommonConnect().excute("/app/sendMessage.json", params, false, new LifeResultResponseHandler() {
+                new LifeConnect().excute("/app/sendMessage.json", params, false, new LifeResultResponseHandler() {
                     @Override
                     public void onSuccess(final LifeResponse lifeListResponse) {
                         code_text.setText(lifeListResponse.data + "");
@@ -163,7 +161,7 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                 params.put("verifCode", code);
                 params.put("source", 1 + "");
                 progressDialog.startProgressDialog();
-                new LifeCommonConnect().call("/app/appRegister.json", params, true, new LifeResultResponseHandler() {
+                new LifeConnect().excute("/app/appRegister.json", params, true, new LifeResultResponseHandler() {
                     @Override
                     public void onSuccess(LifeResponse lifeListResponse) {
                         showToast(lifeListResponse.msg);

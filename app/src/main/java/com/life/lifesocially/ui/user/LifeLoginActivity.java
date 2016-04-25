@@ -1,6 +1,7 @@
 package com.life.lifesocially.ui.user;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -8,9 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
+import com.life.lifeconnect.LifeConnect;
 import com.life.lifeconnect.LifeResponse;
 import com.life.lifeconnect.LifeResultResponseHandler;
-import com.life.lifeconnect.connect.LifeCommonConnect;
 import com.life.lifesocially.R;
 import com.life.lifesocially.base.BaseTitleActivity;
 import com.life.lifesocially.utis.Base64;
@@ -96,23 +97,21 @@ public class LifeLoginActivity extends BaseTitleActivity {
                 params.put("userPhone", Base64.encode(phone));
                 params.put("userPwd", Base64.encode(password));
                 progressDialog.startProgressDialog();
-                new LifeCommonConnect().arrayCall("/app/appLogin.json", params, false, new LifeResultResponseHandler() {
+                new LifeConnect().hash("/app/appLogin.json", params, false, new LifeResultResponseHandler() {
+
                     @Override
                     public void onSuccess(LifeResponse lifeListResponse) {
-                        showToast(lifeListResponse.msg);
-                        progressDialog.stopProgressDialog();
+
                     }
 
                     @Override
                     public void onFail(LifeResponse lifeListResponse, String error) {
-                        showToast(error);
-                        progressDialog.stopProgressDialog();
+
                     }
 
                     @Override
                     public void onFail(String error) {
-                        showToast(error);
-                        progressDialog.stopProgressDialog();
+
                     }
                 });
             }
