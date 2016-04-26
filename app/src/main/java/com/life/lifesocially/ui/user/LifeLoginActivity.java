@@ -1,6 +1,8 @@
 package com.life.lifesocially.ui.user;
 
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -66,7 +68,11 @@ public class LifeLoginActivity extends BaseTitleActivity {
         see_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if(isChecked){
+                    password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    password_text.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }
@@ -101,17 +107,20 @@ public class LifeLoginActivity extends BaseTitleActivity {
 
                     @Override
                     public void onSuccess(LifeResponse lifeListResponse) {
-
+                        showToast(lifeListResponse.msg);
+                        progressDialog.stopProgressDialog();
                     }
 
                     @Override
                     public void onFail(LifeResponse lifeListResponse, String error) {
-
+                        showToast(error);
+                        progressDialog.stopProgressDialog();
                     }
 
                     @Override
                     public void onFail(String error) {
-
+                        showToast(error);
+                        progressDialog.stopProgressDialog();
                     }
                 });
             }
