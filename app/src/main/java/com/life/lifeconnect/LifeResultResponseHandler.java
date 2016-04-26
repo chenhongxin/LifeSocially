@@ -5,9 +5,7 @@ package com.life.lifeconnect;
  */
 public interface LifeResultResponseHandler {
 
-     void onSuccess(LifeResponse lifeListResponse);
-
-    void onFail(LifeResponse lifeListResponse, String error);
+    void onSuccess(LifeResponse lifeListResponse);
 
     void onFail(String error);
 

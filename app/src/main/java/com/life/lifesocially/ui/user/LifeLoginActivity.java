@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
+import com.life.lifeconnect.LifeConfig;
 import com.life.lifeconnect.LifeConnect;
 import com.life.lifeconnect.LifeResponse;
 import com.life.lifeconnect.LifeResultResponseHandler;
@@ -68,9 +69,15 @@ public class LifeLoginActivity extends BaseTitleActivity {
         see_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+<<<<<<< HEAD
                 if(isChecked){
                     password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }else{
+=======
+                if (isChecked) {
+                    password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+>>>>>>> 55176d3d145f1b9b0e62fe48496f07d54b8af616
                     password_text.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
@@ -103,18 +110,22 @@ public class LifeLoginActivity extends BaseTitleActivity {
                 params.put("userPhone", Base64.encode(phone));
                 params.put("userPwd", Base64.encode(password));
                 progressDialog.startProgressDialog();
-                new LifeConnect().hash("/app/appLogin.json", params, false, new LifeResultResponseHandler() {
+                LifeConnect.getInstance().hash("/app/appLogin.json", params, new LifeResultResponseHandler() {
 
                     @Override
                     public void onSuccess(LifeResponse lifeListResponse) {
                         showToast(lifeListResponse.msg);
                         progressDialog.stopProgressDialog();
+<<<<<<< HEAD
                     }
 
                     @Override
                     public void onFail(LifeResponse lifeListResponse, String error) {
                         showToast(error);
                         progressDialog.stopProgressDialog();
+=======
+//                        LifeConfig.putString("userId");
+>>>>>>> 55176d3d145f1b9b0e62fe48496f07d54b8af616
                     }
 
                     @Override
