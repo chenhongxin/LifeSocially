@@ -1,10 +1,14 @@
 package com.life.lifesocially.ui;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.life.lifeconnect.LifeConfig;
+import com.life.lifeconnect.LifeConnect;
+import com.life.lifeconnect.LifeResponse;
+import com.life.lifeconnect.LifeResultResponseHandler;
 import com.life.lifesocially.R;
 import com.life.lifesocially.base.BaseActivity;
 import com.life.lifesocially.ui.user.LifeLoginActivity;
@@ -34,9 +38,17 @@ public class WelComeActivity extends BaseActivity {
 
     @Override
     public void initWidget() {
+        LifeConnect.getInstance().call("/test/getAllIndustry", params, new LifeResultResponseHandler() {
+            @Override
+            public void onSuccess(LifeResponse lifeListResponse) {
+                Log.i("json", "onSuccess");
+            }
 
-
-
+            @Override
+            public void onFail(String error) {
+                showToast(error);
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.life.lifesocially.ui.user;
 
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
+import com.life.lifeconnect.LifeConfig;
 import com.life.lifeconnect.LifeConnect;
 import com.life.lifeconnect.LifeResponse;
 import com.life.lifeconnect.LifeResultResponseHandler;
@@ -66,7 +69,11 @@ public class LifeLoginActivity extends BaseTitleActivity {
         see_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if (isChecked) {
+                    password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    password_text.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }
@@ -97,21 +104,19 @@ public class LifeLoginActivity extends BaseTitleActivity {
                 params.put("userPhone", Base64.encode(phone));
                 params.put("userPwd", Base64.encode(password));
                 progressDialog.startProgressDialog();
-                new LifeConnect().hash("/app/appLogin.json", params, false, new LifeResultResponseHandler() {
+                LifeConnect.getInstance().hash("/app/appLogin.json", params, new LifeResultResponseHandler() {
 
                     @Override
                     public void onSuccess(LifeResponse lifeListResponse) {
-
-                    }
-
-                    @Override
-                    public void onFail(LifeResponse lifeListResponse, String error) {
-
+                        showToast(lifeListResponse.msg);
+                        progressDialog.stopProgressDialog();
+//                        LifeConfig.putString("userId");
                     }
 
                     @Override
                     public void onFail(String error) {
-
+                        showToast(error);
+                        progressDialog.stopProgressDialog();
                     }
                 });
             }

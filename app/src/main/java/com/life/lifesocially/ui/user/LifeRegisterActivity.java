@@ -2,6 +2,7 @@ package com.life.lifesocially.ui.user;
 
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,6 +80,7 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                 }
             }
         });
+
     }
 
     @Override
@@ -100,21 +102,12 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                 params.put("code", "101");
                 params.put("phone", Base64.encode(phone));
                 progressDialog.startProgressDialog();
-                new LifeConnect().excute("/app/sendMessage.json", params, false, new LifeResultResponseHandler() {
+                LifeConnect.getInstance().excute("/app/sendMessage.json", params, new LifeResultResponseHandler() {
                     @Override
                     public void onSuccess(final LifeResponse lifeListResponse) {
                         code_text.setText(lifeListResponse.data + "");
                         progressDialog.stopProgressDialog();
                         showToast(lifeListResponse.msg);
-                    }
-
-                    @Override
-                    public void onFail(LifeResponse lifeListResponse, String error) {
-                        showToast(error);
-                        progressDialog.stopProgressDialog();
-                        code_btn.setText("获取验证码");
-                        code_btn.getBackground().setAlpha(255);
-                        code_btn.setEnabled(true);
                     }
 
                     @Override
@@ -124,6 +117,7 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                         code_btn.setText("获取验证码");
                         code_btn.getBackground().setAlpha(255);
                         code_btn.setEnabled(true);
+                        count.cancel();
                     }
                 });
             }
@@ -152,7 +146,7 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                     showToast("请输入验证码");
                     return;
                 }
-                if(code.length() != 6){
+                if (code.length() != 6) {
                     showToast("验证码需要6位长度");
                 }
                 params.clear();
@@ -161,19 +155,13 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                 params.put("verifCode", code);
                 params.put("source", 1 + "");
                 progressDialog.startProgressDialog();
-                new LifeConnect().excute("/app/appRegister.json", params, true, new LifeResultResponseHandler() {
+                LifeConnect.getInstance().isCookie(true).excute("/app/appRegister.json", params, new LifeResultResponseHandler() {
                     @Override
                     public void onSuccess(LifeResponse lifeListResponse) {
                         showToast(lifeListResponse.msg);
                         progressDialog.stopProgressDialog();
                         setResult(RESULT_OK);
                         finish();
-                    }
-
-                    @Override
-                    public void onFail(LifeResponse lifeListResponse, String error) {
-                        showToast(error);
-                        progressDialog.stopProgressDialog();
                     }
 
                     @Override
@@ -191,34 +179,6 @@ public class LifeRegisterActivity extends BaseTitleActivity {
                 password_text.setText("");
                 break;
         }
-    }
-
-    private void enable() {
-        boolean result = false;
-        String phone = telephone_text.getText().toString();
-        boolean isMobile = CheckUtils.isMobileNO(phone);
-        if (isMobile) {
-            if (password_text.getText().length() > 6) {
-                if (code_text.getText().length() == 6) {
-                    result = true;
-                }
-            }
-        }
-        if (telephone_text.hasFocus()) {
-            if (!TextUtils.isEmpty(phone)) {
-                iv_phone_clear.setVisibility(View.VISIBLE);
-            } else {
-                iv_phone_clear.setVisibility(View.GONE);
-            }
-        }
-        if (password_text.hasFocus()) {
-            if (!TextUtils.isEmpty(phone)) {
-                iv_password_clear.setVisibility(View.VISIBLE);
-            } else {
-                iv_password_clear.setVisibility(View.GONE);
-            }
-        }
-        register_btn.setEnabled(result);
     }
 
     class MyCount extends CountDownTimer {
