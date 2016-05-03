@@ -69,15 +69,9 @@ public class LifeLoginActivity extends BaseTitleActivity {
         see_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-<<<<<<< HEAD
-                if(isChecked){
-                    password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }else{
-=======
                 if (isChecked) {
                     password_text.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else {
->>>>>>> 55176d3d145f1b9b0e62fe48496f07d54b8af616
                     password_text.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
@@ -116,16 +110,6 @@ public class LifeLoginActivity extends BaseTitleActivity {
                     public void onSuccess(LifeResponse lifeListResponse) {
                         showToast(lifeListResponse.msg);
                         progressDialog.stopProgressDialog();
-<<<<<<< HEAD
-                    }
-
-                    @Override
-                    public void onFail(LifeResponse lifeListResponse, String error) {
-                        showToast(error);
-                        progressDialog.stopProgressDialog();
-=======
-//                        LifeConfig.putString("userId");
->>>>>>> 55176d3d145f1b9b0e62fe48496f07d54b8af616
                     }
 
                     @Override

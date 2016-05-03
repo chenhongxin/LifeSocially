@@ -23,6 +23,8 @@ public class WelComeActivity extends BaseActivity {
     Button b_welcome_register;
     @Bind(R.id.b_welcome_login)
     Button b_welcome_login;
+    @Bind(R.id.b_test)
+    Button b_test;
     private final int WELCOME_REGISTER_REQUEST = 0x111;
 
     @Override
@@ -38,23 +40,14 @@ public class WelComeActivity extends BaseActivity {
 
     @Override
     public void initWidget() {
-        LifeConnect.getInstance().call("/test/getAllIndustry", params, new LifeResultResponseHandler() {
-            @Override
-            public void onSuccess(LifeResponse lifeListResponse) {
-                Log.i("json", "onSuccess");
-            }
 
-            @Override
-            public void onFail(String error) {
-                showToast(error);
-            }
-        });
     }
 
     @Override
     public void initWidgetClick() {
         b_welcome_register.setOnClickListener(this);
         b_welcome_login.setOnClickListener(this);
+        b_test.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +59,10 @@ public class WelComeActivity extends BaseActivity {
             break;
             case R.id.b_welcome_login: {
                 intentCallBack.startActivityCommon(LifeLoginActivity.class);
+            }
+            break;
+            case R.id.b_test: {
+                intentCallBack.startActivityCommon(IndustryActivity.class);
             }
             break;
         }

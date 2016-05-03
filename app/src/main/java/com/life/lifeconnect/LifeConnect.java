@@ -26,7 +26,7 @@ import rx.schedulers.Schedulers;
 /**
  * LifeConnect
  */
-public class LifeConnect<K> {
+public class LifeConnect {
 
     // 单例
     private static LifeConnect lifeConnect;
@@ -117,10 +117,14 @@ public class LifeConnect<K> {
                 observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<LifeResponse<T>>() {
             @Override
             public void call(LifeResponse<T> listLifeResponse) {
-                if (!"200".equals(listLifeResponse.code)) {
-                    lifeResultResponseHandler.onFail(listLifeResponse.msg);
-                } else {
-                    lifeResultResponseHandler.onSuccess(listLifeResponse);
+                try {
+                    if (!"200".equals(listLifeResponse.code)) {
+                        lifeResultResponseHandler.onFail(listLifeResponse.msg);
+                    } else {
+                        lifeResultResponseHandler.onSuccess(listLifeResponse);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }, new Action1<Throwable>() {
@@ -138,10 +142,14 @@ public class LifeConnect<K> {
             @Override
             public void onResponse(Call<LifeResponse<ArrayList<HashMap<String, Object>>>> call, retrofit2.Response<LifeResponse<ArrayList<HashMap<String, Object>>>> response) {
                 LifeResponse<ArrayList<HashMap<String, Object>>> listLifeResponse = response.body();
-                if (!"200".equals(listLifeResponse.code)) {
-                    lifeResultResponseHandler.onFail(listLifeResponse.msg);
-                } else {
-                    lifeResultResponseHandler.onSuccess(listLifeResponse);
+                try {
+                    if (!"200".equals(listLifeResponse.code)) {
+                        lifeResultResponseHandler.onFail(listLifeResponse.msg);
+                    } else {
+                        lifeResultResponseHandler.onSuccess(listLifeResponse);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

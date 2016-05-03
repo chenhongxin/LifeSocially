@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".ui.user.LifeRegisterActivity" >
         </activity>
+        <activity android:name=".ui.IndustryActivity" >
+        </activity>
     </application>
 
 </manifest>
